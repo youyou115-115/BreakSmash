@@ -12,6 +12,9 @@ score:0,
 combo:0,
 maxCombo:0,
 speed:1,
+shake:0,
+message:"",
+messageTimer:0,
 
 hp:3,
 maxHp:3,
@@ -59,6 +62,19 @@ ObjectManager.update();
 
 
         Effects.update();
+
+        if(this.messageTimer > 0){
+
+    this.messageTimer--;
+
+}
+
+
+if(this.shake > 0){
+
+    this.shake--;
+
+}
 
 
 

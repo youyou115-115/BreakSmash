@@ -129,6 +129,11 @@ damage(power=1){
 
         this.state="damaged";
 
+        Game.shake = 12;
+
+        Game.message = "BREAK!";
+        Game.messageTimer = 45;
+
 
         Effects.createBreak(
     this.x + this.width / 2,

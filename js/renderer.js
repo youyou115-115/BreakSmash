@@ -228,7 +228,20 @@ ctx.fillText(
 
 
 }
+if(game.messageTimer > 0){
 
+    ctx.textAlign="center";
+
+    ctx.fillStyle="white";
+    ctx.font="60px Arial";
+
+    ctx.fillText(
+        game.message,
+        400,
+        250
+    );
+
+}
 
     Effects.draw(ctx);
 

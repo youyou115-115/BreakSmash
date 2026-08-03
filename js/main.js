@@ -99,7 +99,16 @@ else{
 : (canvas.height - GAME_HEIGHT * scale) / 2;
 
 
+let shakeX = 0;
+let shakeY = 0;
 
+
+if(Game.shake > 0){
+
+    shakeX = Math.random()*20-10;
+    shakeY = Math.random()*20-10;
+
+}
     ctx.setTransform(
         scale,
         0,
