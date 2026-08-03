@@ -137,19 +137,30 @@ if(this.state==="destroy"){
 
 
 
-        if(this.y>=300){
+        let groundY;
 
 
-            this.y=300;
+if(window.innerWidth < 700){
+
+    groundY = 600;
+
+}
+else{
+
+    groundY = 300;
+
+}
 
 
-            this.vy=0;
+if(this.y>=groundY){
 
+    this.y=groundY;
 
-            this.active=true;
+    this.vy=0;
 
+    this.active=true;
 
-        }
+}
 
 
     }
