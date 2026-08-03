@@ -41,6 +41,39 @@ const ObjectData = {
 
 };
 
+const BreakEffectData = {
+
+    bottle:{
+        text:"SPLASH!",
+        shake:5,
+        color:"#66ccff"
+    },
+
+    board:{
+        text:"BREAK!",
+        shake:10,
+        color:"#ffff66"
+    },
+
+    iron:{
+        text:"CRASH!",
+        shake:18,
+        color:"#ff9900"
+    },
+
+    tv:{
+        text:"SMASH!",
+        shake:15,
+        color:"#ff66cc"
+    },
+
+    sofa:{
+        text:"DESTROY!!",
+        shake:25,
+        color:"#ff3333"
+    }
+
+};
 
 class GameObject{
 
@@ -129,10 +162,18 @@ damage(power=1){
 
         this.state="damaged";
 
-        Game.shake = 12;
+        const effect = BreakEffectData[this.type];
 
-        Game.message = "BREAK!";
-        Game.messageTimer = 45;
+
+    Game.shake = effect.shake;
+
+    Game.message = effect.text;
+
+Game.messageColor = effect.color;
+
+Game.messageTimer = 45;
+
+    
 
 
         Effects.createBreak(

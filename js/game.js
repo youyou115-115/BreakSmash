@@ -15,6 +15,7 @@ speed:1,
 shake:0,
 message:"",
 messageTimer:0,
+messageColor:"#ffffff",
 
 hp:3,
 maxHp:3,
@@ -179,7 +180,7 @@ addScore(value){
 
     //速度アップ
 
-    this.speed += 0.02;
+    this.speed += 0.035;
 
 
     if(this.speed > 3){

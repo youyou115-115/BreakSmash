@@ -232,15 +232,19 @@ if(game.messageTimer > 0){
 
     ctx.textAlign="center";
 
-    ctx.fillStyle="white";
+    ctx.fillStyle = game.messageColor;
     ctx.font="60px Arial";
 
-    ctx.fillText(
-        game.message,
-        400,
-        250
-    );
+   ctx.shadowColor="black";
+ctx.shadowBlur=10;
 
+ctx.fillText(
+    game.message,
+    400,
+    250
+);
+
+ctx.shadowBlur=0;
 }
 
     Effects.draw(ctx);
