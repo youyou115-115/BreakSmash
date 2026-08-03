@@ -40,7 +40,7 @@ ctx.fillText(
 ctx.font="30px Arial";
 
 ctx.fillText(
-"CLICK START",
+"START",
 400,
 350
 );
