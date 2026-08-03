@@ -21,18 +21,30 @@ init(canvas){
 
 
 
-            let scale = Math.min(
-                canvas.width / 800,
-                canvas.height / Game.height
-            );
+            let scale;
 
 
-            const offsetX =
-            (canvas.width - 800 * scale) / 2;
+if(window.innerWidth < 700){
+
+    scale = canvas.width / 800;
+
+}
+else{
+
+    scale = Math.min(
+        canvas.width / 800,
+        canvas.height / Game.height
+    );
+
+}
 
 
-            const offsetY =
-            (canvas.height - Game.height * scale) / 2;
+const offsetX =
+(canvas.width - 800 * scale) / 2;
+
+
+const offsetY =
+(canvas.height - Game.height * scale) / 2;
 
 
 

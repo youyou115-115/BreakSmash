@@ -22,6 +22,8 @@ ctx.fillRect(0,0,800,700);
 
 
 
+// タイトル
+
 ctx.fillStyle="white";
 ctx.font="60px Arial";
 
@@ -29,19 +31,33 @@ ctx.textAlign="center";
 
 
 ctx.fillText(
-"BreakSmash",
-400,
-game.height/2 - 50
+    "BreakSmash",
+    400,
+    game.height / 2 - 80
 );
 
 
 
-ctx.font="30px Arial";
+// スタートボタン
+
+ctx.fillStyle="#333";
+
+ctx.fillRect(
+    250,
+    game.height / 2,
+    300,
+    80
+);
+
+
+ctx.fillStyle="white";
+
+ctx.font="35px Arial";
 
 ctx.fillText(
-"START",
-400,
-game.height/2 + 50
+    "START",
+    400,
+    game.height / 2 + 52
 );
 
 
@@ -57,7 +73,6 @@ if(game.screen==="play"){
     // 背景
     //====================
 
-    if(Assets.background){
 
         if(Assets.background){
 
@@ -68,8 +83,6 @@ if(game.screen==="play"){
         800,
         game.height
     );
-
-}
 
     }
 
