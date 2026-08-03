@@ -102,48 +102,35 @@ const offsetY =
             //====================
             // ゲーム中
             //====================
+//====================
+// 全画面タップ
+//====================
+
+let target = null;
 
 
-            // スマホは全画面タップ
+for(let obj of ObjectManager.objects){
 
-            if(window.innerWidth < 700){
+    if(obj.active){
 
+        if(!target || obj.y > target.y){
 
-                if(ObjectManager.objects.length > 0){
-
-                    ObjectManager.objects[0].damage();
-
-                }
-
-
-                return;
-
-            }
-
-
-
-            // PCは板クリック
-
-            for(let obj of ObjectManager.objects){
-
-
-                if(
-                    gameX > obj.x &&
-                    gameX < obj.x + obj.width &&
-                    gameY > obj.y &&
-                    gameY < obj.y + obj.height
-                ){
-
-                    obj.damage();
-
-                    break;
-
-                }
-
-            }
-
+            target = obj;
 
         }
+
+    }
+
+}
+
+
+if(target){
+
+    target.damage();
+
+}
+
+    }
     );
 
 

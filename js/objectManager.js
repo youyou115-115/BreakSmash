@@ -35,13 +35,42 @@ spawn(){
 
     let type=this.randomType();
 
-let obj=new GameObject(type);
+    let obj=new GameObject(type);
+
 
     if(window.innerWidth < 700){
 
         obj.gravity = 0.8;
 
     }
+
+
+    // 出現位置ランダム
+    obj.x = Math.random() * 300 + 100;
+
+
+    this.objects.push(obj);
+
+},
+
+spawnDouble(){
+
+    this.spawn();
+
+
+    let type=this.randomType();
+
+    let obj=new GameObject(type);
+
+
+    if(window.innerWidth < 700){
+
+        obj.gravity = 0.8;
+
+    }
+
+
+    obj.x = Math.random() * 300 + 400;
 
 
     this.objects.push(obj);

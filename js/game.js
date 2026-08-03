@@ -71,14 +71,22 @@ ObjectManager.update();
             this.spawnTimer = setTimeout(()=>{
 
 
-                ObjectManager.spawn();
+    if(this.score >= 500){
+
+        ObjectManager.spawnDouble();
+
+    }
+    else{
+
+        ObjectManager.spawn();
+
+    }
 
 
-                this.spawnTimer=null;
+    this.spawnTimer=null;
 
 
-            },500);
-
+},500);
 
         }
 

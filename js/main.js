@@ -72,12 +72,13 @@ if(window.innerWidth < 700){
 
     // スマホ縦
 
-    scale = canvas.width / GAME_WIDTH;
+    scale = Math.min(
+        canvas.width / GAME_WIDTH,
+        canvas.height / GAME_HEIGHT
+    );
 
 }
 else{
-
-    // PC
 
     scale = Math.min(
         canvas.width / GAME_WIDTH,
@@ -93,7 +94,9 @@ else{
 
 
     const offsetY =
-    (canvas.height - GAME_HEIGHT * scale) / 2;
+(window.innerWidth < 700)
+? 0
+: (canvas.height - GAME_HEIGHT * scale) / 2;
 
 
 
