@@ -10,6 +10,8 @@ screen:"title",
 
 score:0,
 
+width:800,
+height:700,
 
 spawnTimer:null,
 
@@ -18,6 +20,19 @@ init(canvas,ctx){
 
     this.canvas = canvas;
     this.ctx = ctx;
+
+
+    if(window.innerWidth < 700){
+
+        this.height = 1200;
+
+    }
+    else{
+
+        this.height = 700;
+
+    }
+
 
     Assets.load();
 

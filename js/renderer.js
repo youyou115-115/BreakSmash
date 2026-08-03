@@ -10,9 +10,8 @@ ctx.clearRect(
 0,
 0,
 800,
-700
+game.height
 );
-
 
 
 if(game.screen==="title"){
@@ -60,13 +59,17 @@ if(game.screen==="play"){
 
     if(Assets.background){
 
-        ctx.drawImage(
-            Assets.background,
-            0,
-            0,
-            800,
-            700
-        );
+        if(Assets.background){
+
+    ctx.drawImage(
+        Assets.background,
+        0,
+        0,
+        800,
+        game.height
+    );
+
+}
 
     }
 

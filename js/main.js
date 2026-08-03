@@ -4,7 +4,19 @@ const ctx = canvas.getContext("2d");
 
 
 const GAME_WIDTH = 800;
-const GAME_HEIGHT = 700;
+
+let GAME_HEIGHT;
+
+if(window.innerWidth < 700){
+
+    GAME_HEIGHT = 1200;
+
+}
+else{
+
+    GAME_HEIGHT = 700;
+
+}
 
 
 function resizeCanvas(){
@@ -53,12 +65,26 @@ function loop(){
 
 
 
-    // 最大表示
+    let scale;
 
-    const scale = Math.min(
+
+if(window.innerWidth < 700){
+
+    // スマホ縦
+
+    scale = canvas.width / GAME_WIDTH;
+
+}
+else{
+
+    // PC
+
+    scale = Math.min(
         canvas.width / GAME_WIDTH,
         canvas.height / GAME_HEIGHT
     );
+
+}
 
 
 
