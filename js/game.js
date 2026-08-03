@@ -112,7 +112,16 @@ start(){
 
     this.maxCombo=0;
 
-    this.speed=1;
+    if(window.innerWidth < 700){
+
+    this.speed = 1.3;
+
+}
+else{
+
+    this.speed = 1;
+
+}
 
     this.hp=3;
 
