@@ -18,7 +18,12 @@ if(game.screen==="title"){
 
 
 ctx.fillStyle="#222";
-ctx.fillRect(0,0,800,700);
+ctx.fillRect(
+    0,
+    0,
+    800,
+    game.height
+);
 
 
 
@@ -108,108 +113,104 @@ if(game.screen==="play"){
     // 物を描画
     //====================
 
-    for(let obj of ObjectManager.objects){
+ for(let obj of ObjectManager.objects){
 
 
-        if(obj.type==="board"){
-
-
-            if(obj.state==="destroy"){
-                continue;
-            }
+    if(obj.state==="destroy"){
+        continue;
+    }
 
 
 
-            let drawX=obj.x;
-            let drawY=obj.y;
+    let drawX=obj.x;
+    let drawY=obj.y;
 
 
 
-            // 揺れ
+    // 揺れ
 
-            if(obj.shake>0){
+    if(obj.shake>0){
 
-                drawX += Math.random()*20-10;
-                drawY += Math.random()*20-10;
-
-            }
-
-
-
-            // 影
-
-            ctx.fillStyle="rgba(0,0,0,0.3)";
-
-            ctx.fillRect(
-                drawX+10,
-                drawY+10,
-                obj.width,
-                obj.height
-            );
-
-
-
-            // 板画像
-
-            if(Assets.board){
-
-                ctx.drawImage(
-                    Assets.board,
-                    drawX,
-                    drawY,
-                    obj.width,
-                    obj.height
-                );
-
-            }
-
-
-
-            // 赤点滅
-
-            if(obj.damageFlash>0){
-
-                ctx.fillStyle="rgba(255,0,0,0.35)";
-
-                ctx.fillRect(
-                    drawX,
-                    drawY,
-                    obj.width,
-                    obj.height
-                );
-
-            }
-
-
-
-            // HPバー
-
-            const barWidth=obj.width;
-            const barHeight=12;
-
-
-            ctx.fillStyle="#333";
-
-            ctx.fillRect(
-                drawX,
-                drawY-25,
-                barWidth,
-                barHeight
-            );
-
-
-            ctx.fillStyle="#00ff66";
-
-            ctx.fillRect(
-                drawX,
-                drawY-25,
-                barWidth*(obj.hp/obj.maxHp),
-                barHeight
-            );
-
-        }
+        drawX += Math.random()*20-10;
+        drawY += Math.random()*20-10;
 
     }
+
+
+
+    // 影
+
+    ctx.fillStyle="rgba(0,0,0,0.3)";
+
+    ctx.fillRect(
+        drawX+10,
+        drawY+10,
+        obj.width,
+        obj.height
+    );
+
+
+
+    // オブジェクト画像
+
+    if(Assets[obj.type]){
+
+        ctx.drawImage(
+            Assets[obj.type],
+            drawX,
+            drawY,
+            obj.width,
+            obj.height
+        );
+
+    }
+
+
+
+    // 赤点滅
+
+    if(obj.damageFlash>0){
+
+        ctx.fillStyle="rgba(255,0,0,0.35)";
+
+        ctx.fillRect(
+            drawX,
+            drawY,
+            obj.width,
+            obj.height
+        );
+
+    }
+
+
+
+    // HPバー
+
+    const barWidth=obj.width;
+    const barHeight=12;
+
+
+    ctx.fillStyle="#333";
+
+    ctx.fillRect(
+        drawX,
+        drawY-25,
+        barWidth,
+        barHeight
+    );
+
+
+    ctx.fillStyle="#00ff66";
+
+    ctx.fillRect(
+        drawX,
+        drawY-25,
+        barWidth*(obj.hp/obj.maxHp),
+        barHeight
+    );
+
+
+}
 
 
     Effects.draw(ctx);
