@@ -15,18 +15,35 @@ init(){
 
 randomType(){
 
-const list=[
-"iron",
-"tv",
-"board",
-"bottle",
-"sofa"
-];
+const rand = Math.random();
 
 
-return list[
-Math.floor(Math.random()*list.length)
-];
+if(rand < 0.35){
+
+    return "bottle";
+
+}
+else if(rand < 0.65){
+
+    return "board";
+
+}
+else if(rand < 0.85){
+
+    return "iron";
+
+}
+else if(rand < 0.95){
+
+    return "tv";
+
+}
+else{
+
+    return "sofa";
+
+}
+
 
 },
 

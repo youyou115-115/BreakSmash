@@ -101,7 +101,7 @@ this.destroyDelay=8;
 
 
 
-damage(){
+damage(power=1){
 
 
     if(this.state!=="normal"){
@@ -115,7 +115,7 @@ damage(){
     }
 
 
-    this.hp--;
+      this.hp -= power;
 
 
     this.damageFlash = 30;

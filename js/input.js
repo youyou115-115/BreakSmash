@@ -111,7 +111,10 @@ let target = null;
 
 for(let obj of ObjectManager.objects){
 
-    if(obj.active){
+    if(
+        obj.active &&
+        obj.state==="normal"
+    ){
 
         if(!target || obj.y > target.y){
 
@@ -123,12 +126,39 @@ for(let obj of ObjectManager.objects){
 
 }
 
+  if(target){
 
-if(target){
+    let damagePower = 1;
 
-    target.damage();
+
+    let activeCount = 0;
+
+
+    for(let obj of ObjectManager.objects){
+
+        if(
+            obj.state==="normal" &&
+            obj.active
+        ){
+
+            activeCount++;
+
+        }
+
+    }
+
+
+    if(activeCount >= 2){
+
+        damagePower = 1.5;
+
+    }
+
+
+    target.damage(damagePower);
 
 }
+
 
     }
     );
