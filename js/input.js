@@ -70,8 +70,8 @@ const offsetY =
                 if(
                     gameX > 250 &&
                     gameX < 550 &&
-                    gameY > buttonY &&
-                    gameY < buttonY + 80
+                    gameY > buttonY - 30 &&
+                    gameY < buttonY + 120
                 ){
 
                     Game.start();
