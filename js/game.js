@@ -111,7 +111,7 @@ start(){
 
     if(window.innerWidth < 700){
 
-    this.speed = 1.3;
+    this.speed = 1.8;
 
 }
 else{
