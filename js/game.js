@@ -22,6 +22,7 @@ maxHp:3,
 
 width:800,
 height:700,
+damageFlash:0,
 
 spawnTimer:null,
 
@@ -70,6 +71,11 @@ ObjectManager.update();
 
 }
 
+if(this.damageFlash > 0){
+
+    this.damageFlash--;
+
+}
 
 if(this.shake > 0){
 

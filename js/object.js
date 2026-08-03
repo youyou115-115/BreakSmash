@@ -13,30 +13,30 @@ const ObjectData = {
     },
 
 
-    tv:{
-        width:300,
-        height:180,
-        hp:4,
-        score:500,
+   tv:{
+    width:300,
+    height:180,
+    hp:4,
+    score:500,
 
-        weakX:0.25,
-        weakY:0.2,
-        weakW:0.5,
-        weakH:0.5
-    },
+    weakX:0.55,
+    weakY:0.05,
+    weakW:0.35,
+    weakH:0.3
+},
 
 
-    board:{
-        width:300,
-        height:150,
-        hp:2,
-        score:200,
+   board:{
+    width:300,
+    height:150,
+    hp:2,
+    score:200,
 
-        weakX:0.35,
-        weakY:0.25,
-        weakW:0.3,
-        weakH:0.4
-    },
+    weakX:0.35,
+    weakY:0.05,
+    weakW:0.3,
+    weakH:0.3
+},
 
 
     bottle:{
@@ -44,25 +44,20 @@ const ObjectData = {
         height:200,
         hp:1,
         score:100,
-
-        weakX:0.25,
-        weakY:0.2,
-        weakW:0.5,
-        weakH:0.6
     },
 
 
     sofa:{
-        width:350,
-        height:200,
-        hp:5,
-        score:800,
+    width:350,
+    height:200,
+    hp:5,
+    score:800,
 
-        weakX:0.25,
-        weakY:0.2,
-        weakW:0.5,
-        weakH:0.4
-    }
+    weakX:0.25,
+    weakY:0.05,
+    weakW:0.5,
+    weakH:0.3
+}
 
 };
 
@@ -162,6 +157,8 @@ this.destroyDelay=8;
 
 damage(x,y,power=1){
 
+    
+
 
     if(this.state!=="normal"){
         return;
@@ -173,25 +170,35 @@ damage(x,y,power=1){
         return;
     }
 
-    const data = ObjectData[this.type];
+    if(this.hp <= 0){
+    return;
+}
+
+   const data = ObjectData[this.type];
 
 
-if(
-    x > this.x + this.width * data.weakX &&
-    x < this.x + this.width * (data.weakX + data.weakW) &&
-    y > this.y + this.height * data.weakY &&
-    y < this.y + this.height * (data.weakY + data.weakH)
-){
+// ボトル以外は弱点判定
+if(this.type !== "bottle"){
 
-    power *= 2;
+    if(
+        x > this.x + this.width * data.weakX &&
+        x < this.x + this.width * (data.weakX + data.weakW) &&
+        y > this.y + this.height * data.weakY &&
+        y < this.y + this.height * (data.weakY + data.weakH)
+    ){
 
-    Game.message = "CRITICAL!!";
-    Game.messageTimer = 30;
+        power *= 2;
+
+        Game.message = "CRITICAL!!";
+        Game.messageTimer = 30;
+
+    }
 
 }
 
 
       this.hp -= power;
+      this.hp = Math.max(0,this.hp);
       Sound.playShot();
 
     this.damageFlash = 30;
@@ -204,6 +211,7 @@ if(
         this.destroyTimer=60;
 
         this.state="damaged";
+        Sound.playDestroy(this.type);
 
         const effect = BreakEffectData[this.type];
 
@@ -308,25 +316,54 @@ update(){
     }
 
 
-    //====================
-    // 地面到着後2秒でミス
-    //====================
+ //====================
+// 地面到着後2秒でミス
+//====================
 
-    if(this.active){
+if(this.active){
 
-        this.lifeTimer++;
+    this.lifeTimer++;
 
-        if(this.lifeTimer >= 150){
 
-            Game.miss();
+if(
+    this.lifeTimer >= 150 &&
+    this.state==="normal"
+){
 
-            this.destroyTimer = 30;
 
-            this.state = "destroy";
+    // ボトルは失敗扱いにしない
+    if(this.type !== "bottle"){
+
+
+        // 赤点滅
+        Game.damageFlash = 45;
+
+
+        // ゾンビ失敗ボイス
+        Sound.playZombieFail();
+
+
+        // ソファだけチェンソー追加
+        if(this.type==="sofa"){
+
+            Sound.playChainsaw();
 
         }
 
+
+        // HP減少
+        Game.miss();
+
     }
+
+        this.destroyTimer = 30;
+
+        this.state = "destroy";
+
+    }
+
+}
+
 
 
     //====================

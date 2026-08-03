@@ -275,12 +275,23 @@ if(
 
     ctx.fillStyle="#00ff66";
 
-    ctx.fillRect(
-        drawX,
-        drawY-25,
-        barWidth*(obj.hp/obj.maxHp),
-        barHeight
-    );
+
+const hpRate =
+Math.max(
+    0,
+    Math.min(
+        1,
+        obj.hp / obj.maxHp
+    )
+);
+
+
+ctx.fillRect(
+    drawX,
+    drawY-25,
+    barWidth * hpRate,
+    barHeight
+);
 
    
 
@@ -348,6 +359,20 @@ ctx.shadowBlur=0;
     ctx.fillStyle="white";
     ctx.font="35px Arial";
     ctx.fillText("RETRY",400,575);
+
+}
+if(game.damageFlash > 0){
+
+    ctx.fillStyle =
+    "rgba(255,0,0,0.35)";
+
+
+    ctx.fillRect(
+        0,
+        0,
+        800,
+        game.height
+    );
 
 }
 }
