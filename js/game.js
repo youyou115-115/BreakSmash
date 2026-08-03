@@ -116,11 +116,12 @@ start(){
 
     this.hp=3;
 
-
+   this.spawnTimer=null;
     ObjectManager.objects=[];
 
 
     ObjectManager.spawn();
+    
 
 },
 addScore(value){

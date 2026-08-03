@@ -224,12 +224,55 @@ ctx.fillText(
         barHeight
     );
 
+   
+
 
 }
 
 
     Effects.draw(ctx);
 
+
+}
+
+ if(game.screen==="gameover"){
+
+    ctx.fillStyle="#111";
+    ctx.fillRect(0,0,800,game.height);
+
+    ctx.textAlign="center";
+
+    ctx.fillStyle="white";
+    ctx.font="70px Arial";
+    ctx.fillText("GAME OVER",400,220);
+
+    ctx.font="35px Arial";
+    ctx.fillText(
+        "処理落ちが発生しました",
+        400,
+        300
+    );
+
+    ctx.font="30px Arial";
+    ctx.fillText(
+        "Score : " + game.score,
+        400,
+        380
+    );
+
+    ctx.fillText(
+        "Max Combo : " + game.maxCombo,
+        400,
+        430
+    );
+
+    // RETRYボタン
+    ctx.fillStyle="#333";
+    ctx.fillRect(250,520,300,80);
+
+    ctx.fillStyle="white";
+    ctx.font="35px Arial";
+    ctx.fillText("RETRY",400,575);
 
 }
 }

@@ -82,6 +82,19 @@ const offsetY =
                 return;
 
             }
+            if(Game.screen==="gameover"){
+
+    if(
+        gameX > 250 &&
+        gameX < 550 &&
+        gameY > 520 &&
+        gameY < 600
+    ){
+        Game.start();
+    }
+
+    return;
+}
 
 
 
