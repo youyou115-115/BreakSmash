@@ -13,11 +13,11 @@ init(canvas){
 
 
             const x =
-            e.clientX - rect.left;
+(e.clientX - rect.left) * (canvas.width / rect.width);
 
 
-            const y =
-            e.clientY - rect.top;
+const y =
+(e.clientY - rect.top) * (canvas.height / rect.height);
 
 
 
