@@ -9,7 +9,78 @@ init(canvas){
         (e)=>{
 
 
-            // スマホ
+            const rect = canvas.getBoundingClientRect();
+
+
+            const x =
+            e.clientX - rect.left;
+
+
+            const y =
+            e.clientY - rect.top;
+
+
+
+            let scale = Math.min(
+                canvas.width / 800,
+                canvas.height / Game.height
+            );
+
+
+            const offsetX =
+            (canvas.width - 800 * scale) / 2;
+
+
+            const offsetY =
+            (canvas.height - Game.height * scale) / 2;
+
+
+
+            const gameX =
+            (x - offsetX) / scale;
+
+
+            const gameY =
+            (y - offsetY) / scale;
+
+
+
+            //====================
+            // タイトル画面
+            //====================
+
+            if(Game.screen==="title"){
+
+
+                const buttonY = Game.height / 2;
+
+
+                if(
+                    gameX > 250 &&
+                    gameX < 550 &&
+                    gameY > buttonY &&
+                    gameY < buttonY + 80
+                ){
+
+                    Game.start();
+
+                }
+
+
+                return;
+
+            }
+
+
+
+
+            //====================
+            // ゲーム中
+            //====================
+
+
+            // スマホは全画面タップ
+
             if(window.innerWidth < 700){
 
 
@@ -26,43 +97,7 @@ init(canvas){
 
 
 
-            // PCは今まで通り座標判定
-
-            const rect = canvas.getBoundingClientRect();
-
-
-            const x =
-            e.clientX - rect.left;
-
-
-            const y =
-            e.clientY - rect.top;
-
-
-
-            const scale = Math.min(
-                canvas.width / 800,
-                canvas.height / 700
-            );
-
-
-            const offsetX =
-            (canvas.width - 800 * scale) / 2;
-
-
-            const offsetY =
-            (canvas.height - 700 * scale) / 2;
-
-
-
-            const gameX =
-            (x - offsetX) / scale;
-
-
-            const gameY =
-            (y - offsetY) / scale;
-
-
+            // PCは板クリック
 
             for(let obj of ObjectManager.objects){
 
@@ -90,4 +125,4 @@ init(canvas){
 }
 
 
-};
+};  
