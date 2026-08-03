@@ -53,6 +53,11 @@ spawn(){
     let type=this.randomType();
 
     let obj=new GameObject(type);
+    const margin = 50;
+
+obj.x =
+margin + Math.random() *
+(800 - obj.width - margin * 2);
 
 
     if(window.innerWidth < 700){
@@ -61,9 +66,6 @@ spawn(){
 
     }
 
-
-    // 出現位置ランダム
-    obj.x = Math.random() * 300 + 100;
 
 
     this.objects.push(obj);
@@ -72,25 +74,35 @@ spawn(){
 
 spawnDouble(){
 
-    this.spawn();
+    let leftType=this.randomType();
 
-
-    let type=this.randomType();
-
-    let obj=new GameObject(type);
+    let left=new GameObject(leftType);
 
 
     if(window.innerWidth < 700){
-
-        obj.gravity = 0.8;
-
+        left.gravity = 0.8;
     }
 
 
-    obj.x = Math.random() * 300 + 400;
+    left.x = 50;
+
+    this.objects.push(left);
 
 
-    this.objects.push(obj);
+
+    let rightType=this.randomType();
+
+    let right=new GameObject(rightType);
+
+
+    if(window.innerWidth < 700){
+        right.gravity = 0.8;
+    }
+
+
+    right.x = 800 - right.width - 50;
+
+    this.objects.push(right);
 
 },
 

@@ -196,6 +196,64 @@ ctx.fillText(
         );
 
     }
+    //====================
+// 弱点ロックオン
+//====================
+
+if(
+    obj.active &&
+    obj.state==="normal" &&
+    obj.weakTimer > 0
+){
+
+    // 残り30フレームは点滅
+    if(
+        obj.weakTimer < 30 &&
+        Math.floor(obj.weakTimer / 5) % 2 === 0
+    ){
+        continue;
+    }
+
+
+    const data = ObjectData[obj.type];
+
+
+    const cx =
+    obj.x + obj.width * (data.weakX + data.weakW / 2);
+
+
+    const cy =
+    obj.y + obj.height * (data.weakY + data.weakH / 2);
+
+
+    ctx.strokeStyle="red";
+    ctx.lineWidth=4;
+
+
+    ctx.beginPath();
+
+    ctx.arc(
+        cx,
+        cy,
+        25,
+        0,
+        Math.PI * 2
+    );
+
+    ctx.stroke();
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(cx-35,cy);
+    ctx.lineTo(cx+35,cy);
+
+    ctx.moveTo(cx,cy-35);
+    ctx.lineTo(cx,cy+35);
+
+    ctx.stroke();
+
+}
 
 
 

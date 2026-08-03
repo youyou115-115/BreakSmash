@@ -1,93 +1,132 @@
 const Sound = {
 
-
-ctx:null,
-
-
-init(){
-
-    this.ctx = new AudioContext();
-
-},
+    ctx:null,
 
 
+    init(){
 
-playHit(type){
+        this.ctx = new AudioContext();
 
+    },
+
+
+    playShot(){
 
     if(!this.ctx){
         return;
     }
 
 
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
+    const now = this.ctx.currentTime;
 
 
-    osc.connect(gain);
-    gain.connect(this.ctx.destination);
+    //====================
+    // 爆発ノイズ
+    //====================
+
+    const bufferSize =
+    this.ctx.sampleRate * 0.15;
 
 
-
-    let freq = 200;
-    let duration = 0.1;
-
-
-    switch(type){
-
-        case "bottle":
-            freq = 600;
-            break;
+    const buffer =
+    this.ctx.createBuffer(
+        1,
+        bufferSize,
+        this.ctx.sampleRate
+    );
 
 
-        case "board":
-            freq = 300;
-            break;
+    const data =
+    buffer.getChannelData(0);
 
 
-        case "iron":
-            freq = 120;
-            break;
+    for(let i=0;i<bufferSize;i++){
 
-
-        case "tv":
-            freq = 180;
-            break;
-
-
-        case "sofa":
-            freq = 80;
-            break;
+        data[i] =
+        (Math.random()*2-1);
 
     }
 
 
-
-    osc.frequency.value = freq;
-
-    osc.type = "square";
+    const noise =
+    this.ctx.createBufferSource();
 
 
-    gain.gain.setValueAtTime(
-        0.3,
-        this.ctx.currentTime
+    noise.buffer=buffer;
+
+
+    const noiseGain =
+    this.ctx.createGain();
+
+
+    noiseGain.gain.setValueAtTime(
+        0.5,
+        now
     );
 
 
-    gain.gain.exponentialRampToValueAtTime(
+    noiseGain.gain.exponentialRampToValueAtTime(
         0.01,
-        this.ctx.currentTime + duration
+        now+0.12
     );
 
 
-    osc.start();
+    noise.connect(noiseGain);
+    noiseGain.connect(this.ctx.destination);
 
-    osc.stop(
-        this.ctx.currentTime + duration
+
+
+    //====================
+    // 低音衝撃
+    //====================
+
+    const osc =
+    this.ctx.createOscillator();
+
+
+    const bassGain =
+    this.ctx.createGain();
+
+
+    osc.type="sine";
+
+
+    osc.frequency.setValueAtTime(
+        120,
+        now
     );
 
+
+    osc.frequency.exponentialRampToValueAtTime(
+        40,
+        now+0.1
+    );
+
+
+    bassGain.gain.setValueAtTime(
+        0.6,
+        now
+    );
+
+
+    bassGain.gain.exponentialRampToValueAtTime(
+        0.01,
+        now+0.15
+    );
+
+
+    osc.connect(bassGain);
+    bassGain.connect(this.ctx.destination);
+
+
+
+    noise.start(now);
+    osc.start(now);
+
+
+    noise.stop(now+0.15);
+    osc.stop(now+0.15);
 
 }
-
 
 };

@@ -64,24 +64,33 @@ const offsetY =
             if(Game.screen==="title"){
 
 
-                const buttonY = Game.height / 2;
+    const buttonY = Game.height / 2;
 
 
-                if(
-                    gameX > 250 &&
-                    gameX < 550 &&
-                    gameY > buttonY - 30 &&
-                    gameY < buttonY + 120
-                ){
+    if(
+        gameX > 250 &&
+        gameX < 550 &&
+        gameY > buttonY - 30 &&
+        gameY < buttonY + 120
+    ){
 
-                    Game.start();
+        if(Sound.ctx){
 
-                }
+            if(Sound.ctx){
+    Sound.ctx.resume();
+}
+
+        }
 
 
-                return;
+        Game.start();
 
-            }
+    }
+
+
+    return;
+
+}
             if(Game.screen==="gameover"){
 
     if(
@@ -99,13 +108,6 @@ const offsetY =
 
 
 
-            //====================
-            // ゲーム中
-            //====================
-//====================
-// 全画面タップ
-//====================
-
 let target = null;
 
 
@@ -113,54 +115,29 @@ for(let obj of ObjectManager.objects){
 
     if(
         obj.active &&
-        obj.state==="normal"
+        obj.state==="normal" &&
+        gameX > obj.x &&
+        gameX < obj.x + obj.width &&
+        gameY > obj.y &&
+        gameY < obj.y + obj.height
     ){
 
-        if(!target || obj.y > target.y){
+        obj.damage(
+            gameX,
+            gameY
+        );
 
-            target = obj;
-
-        }
+        break;
 
     }
 
 }
 
-  if(target){
-
-    let damagePower = 1;
-
-
-    let activeCount = 0;
-
-
-    for(let obj of ObjectManager.objects){
-
-        if(
-            obj.state==="normal" &&
-            obj.active
-        ){
-
-            activeCount++;
-
-        }
-
-    }
-
-
-    if(activeCount >= 2){
-
-        damagePower = 1.5;
-
-    }
-
-
-    target.damage(damagePower);
+  
 
 }
 
 
-    }
     );
 
 

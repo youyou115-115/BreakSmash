@@ -70,12 +70,13 @@ function loop(){
 
 if(window.innerWidth < 700){
 
-    // スマホ縦
+    GAME_HEIGHT =
+    GAME_WIDTH *
+    (canvas.height / canvas.width);
 
-    scale = Math.min(
-        canvas.width / GAME_WIDTH,
-        canvas.height / GAME_HEIGHT
-    );
+
+    scale = canvas.width / GAME_WIDTH;
+
 
 }
 else{

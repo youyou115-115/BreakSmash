@@ -4,7 +4,12 @@ const ObjectData = {
         width:300,
         height:150,
         hp:3,
-        score:300
+        score:300,
+
+        weakX:0.4,
+        weakY:0.3,
+        weakW:0.2,
+        weakH:0.3
     },
 
 
@@ -12,7 +17,12 @@ const ObjectData = {
         width:300,
         height:180,
         hp:4,
-        score:500
+        score:500,
+
+        weakX:0.25,
+        weakY:0.2,
+        weakW:0.5,
+        weakH:0.5
     },
 
 
@@ -20,7 +30,12 @@ const ObjectData = {
         width:300,
         height:150,
         hp:2,
-        score:200
+        score:200,
+
+        weakX:0.35,
+        weakY:0.25,
+        weakW:0.3,
+        weakH:0.4
     },
 
 
@@ -28,7 +43,12 @@ const ObjectData = {
         width:150,
         height:200,
         hp:1,
-        score:100
+        score:100,
+
+        weakX:0.25,
+        weakY:0.2,
+        weakW:0.5,
+        weakH:0.6
     },
 
 
@@ -36,7 +56,12 @@ const ObjectData = {
         width:350,
         height:200,
         hp:5,
-        score:800
+        score:800,
+
+        weakX:0.25,
+        weakY:0.2,
+        weakW:0.5,
+        weakH:0.4
     }
 
 };
@@ -102,6 +127,7 @@ constructor(type){
     this.shake = 0;
  
     this.lifeTimer = 0;
+    this.weakTimer = 0;
 
     this.counted=false;
 
@@ -134,7 +160,7 @@ this.destroyDelay=8;
 
 
 
-damage(power=1){
+damage(x,y,power=1){
 
 
     if(this.state!=="normal"){
@@ -147,9 +173,26 @@ damage(power=1){
         return;
     }
 
+    const data = ObjectData[this.type];
+
+
+if(
+    x > this.x + this.width * data.weakX &&
+    x < this.x + this.width * (data.weakX + data.weakW) &&
+    y > this.y + this.height * data.weakY &&
+    y < this.y + this.height * (data.weakY + data.weakH)
+){
+
+    power *= 2;
+
+    Game.message = "CRITICAL!!";
+    Game.messageTimer = 30;
+
+}
+
 
       this.hp -= power;
-      Sound.playHit(this.type);
+      Sound.playShot();
 
     this.damageFlash = 30;
     this.shake = 30;
@@ -240,9 +283,9 @@ update(){
 
         if(window.innerWidth < 700){
 
-            groundY = 600;
+    groundY = Game.height * 0.65;
 
-        }
+}
         else{
 
             groundY = 300;
@@ -251,13 +294,16 @@ update(){
 
         if(this.y >= groundY){
 
-            this.y = groundY;
+    this.y = groundY;
 
-            this.vy = 0;
+    this.vy = 0;
 
-            this.active = true;
+    this.active = true;
 
-        }
+    // 弱点表示時間
+    this.weakTimer = 90;
+
+}
 
     }
 
@@ -298,6 +344,12 @@ update(){
         this.shake--;
 
     }
+
+    if(this.weakTimer > 0){
+
+    this.weakTimer--;
+
+}
 
 }
 
