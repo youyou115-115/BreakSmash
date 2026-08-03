@@ -70,6 +70,8 @@ constructor(type){
  
     this.lifeTimer = 0;
 
+    this.counted=false;
+
     this.active=false;
 
 
@@ -103,6 +105,12 @@ damage(){
 
 
     if(this.state!=="normal"){
+        return;
+    }
+
+
+    // 地面到着前は叩けない
+    if(!this.active){
         return;
     }
 

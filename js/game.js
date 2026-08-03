@@ -54,19 +54,8 @@ update(){
     if(this.screen==="play"){
 
 
-        ObjectManager.update();
 
-        for(let obj of ObjectManager.objects){
-
-    if(obj.isBroken() && !obj.counted){
-
-        this.score += obj.score;
-
-        obj.counted=true;
-
-    }
-
-}
+ObjectManager.update();
 
 
         Effects.update();

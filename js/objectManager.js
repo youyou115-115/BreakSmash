@@ -57,6 +57,15 @@ update(){
 
         obj.update();
 
+
+        if(obj.isBroken() && !obj.counted){
+
+            Game.addScore(obj.score);
+
+            obj.counted=true;
+
+        }
+
     }
 
 
@@ -65,7 +74,6 @@ update(){
     this.objects.filter(
         obj=>!obj.isBroken()
     );
-
 
 
 },
