@@ -149,7 +149,7 @@ damage(power=1){
 
 
       this.hp -= power;
-
+      Sound.playHit(this.type);
 
     this.damageFlash = 30;
     this.shake = 30;

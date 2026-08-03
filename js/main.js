@@ -40,7 +40,7 @@ window.addEventListener(
 Game.init(canvas,ctx);
 
 Input.init(canvas);
-
+Sound.init();
 
 
 function loop(){
