@@ -9,6 +9,12 @@ screen:"title",
 
 
 score:0,
+combo:0,
+maxCombo:0,
+speed:1,
+
+hp:3,
+maxHp:3,
 
 width:800,
 height:700,
@@ -97,21 +103,81 @@ update(){
 
 start(){
 
-    if(this.screen==="play"){
-        return;
-    }
-
-
     this.screen="play";
 
+
     this.score=0;
+
+    this.combo=0;
+
+    this.maxCombo=0;
+
+    this.speed=1;
+
+    this.hp=3;
+
+
+    ObjectManager.objects=[];
+
 
     ObjectManager.spawn();
 
 },
 addScore(value){
 
-    this.score += value;
+    this.combo++;
+
+
+    if(this.combo > this.maxCombo){
+
+        this.maxCombo=this.combo;
+
+    }
+
+
+    let multiplier = 1;
+
+
+    if(this.combo >= 10){
+        multiplier = 2;
+    }
+
+    if(this.combo >= 20){
+        multiplier = 3;
+    }
+
+    if(this.combo >= 50){
+        multiplier = 5;
+    }
+
+
+    this.score += value * multiplier;
+
+
+    //速度アップ
+
+    this.speed += 0.02;
+
+
+    if(this.speed > 3){
+
+        this.speed = 3;
+
+    }
+
+},
+miss(){
+
+    this.hp--;
+
+    this.combo=0;
+
+
+    if(this.hp<=0){
+
+        this.screen="gameover";
+
+    }
 
 }
 

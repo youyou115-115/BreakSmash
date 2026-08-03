@@ -107,6 +107,21 @@ if(game.screen==="play"){
         50
     );
 
+    ctx.font="30px Arial";
+
+ctx.fillText(
+    "HP : " + game.hp + " / " + game.maxHp,
+    100,
+    90
+);
+
+
+ctx.fillText(
+    "Combo : "+game.combo,
+    100,
+    130
+);
+
 
 
     //====================

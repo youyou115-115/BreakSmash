@@ -13,12 +13,29 @@ init(){
 
 },
 
+randomType(){
+
+const list=[
+"iron",
+"tv",
+"board",
+"bottle",
+"sofa"
+];
+
+
+return list[
+Math.floor(Math.random()*list.length)
+];
+
+},
 
 
 spawn(){
 
-    let obj = new GameObject("board");
+    let type=this.randomType();
 
+let obj=new GameObject(type);
 
     if(window.innerWidth < 700){
 
@@ -70,13 +87,6 @@ hit(x,y){
 
 
             obj.damage();
-
-
-            if(obj.isBroken()){
-
-                Game.score += obj.score;
-
-            }
 
 
             return;
