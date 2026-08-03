@@ -2,41 +2,6 @@ const Input = {
 
 
 init(canvas){
-    // タイトル開始（PC）
-
-canvas.addEventListener(
-    "click",
-    ()=>{
-
-        if(Game.screen==="title"){
-
-            Game.start();
-
-        }
-
-    }
-);
-
-
-// タイトル開始（スマホ）
-
-canvas.addEventListener(
-    "touchstart",
-    (e)=>{
-
-        if(Game.screen==="title"){
-
-            e.preventDefault();
-
-            Game.start();
-
-        }
-
-    },
-    {
-        passive:false
-    }
-);
 
 
     canvas.addEventListener(
@@ -44,10 +9,27 @@ canvas.addEventListener(
         (e)=>{
 
 
+            // スマホ
+            if(window.innerWidth < 700){
+
+
+                if(ObjectManager.objects.length > 0){
+
+                    ObjectManager.objects[0].damage();
+
+                }
+
+
+                return;
+
+            }
+
+
+
+            // PCは今まで通り座標判定
+
             const rect = canvas.getBoundingClientRect();
 
-
-            // 実際の画面座標
 
             const x =
             e.clientX - rect.left;
@@ -64,7 +46,6 @@ canvas.addEventListener(
             );
 
 
-
             const offsetX =
             (canvas.width - 800 * scale) / 2;
 
@@ -74,8 +55,6 @@ canvas.addEventListener(
 
 
 
-            // 仮想800×700へ変換
-
             const gameX =
             (x - offsetX) / scale;
 
@@ -83,19 +62,7 @@ canvas.addEventListener(
             const gameY =
             (y - offsetY) / scale;
 
-            // タイトル画面
 
-if(Game.screen==="title"){
-
-    Game.start();
-
-    return;
-
-}
-
-
-
-            // クリック判定
 
             for(let obj of ObjectManager.objects){
 
@@ -112,7 +79,6 @@ if(Game.screen==="title"){
                     break;
 
                 }
-
 
             }
 

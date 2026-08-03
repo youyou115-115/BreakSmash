@@ -31,7 +31,7 @@ ctx.textAlign="center";
 ctx.fillText(
 "BreakSmash",
 400,
-250
+game.height/2 - 50
 );
 
 
@@ -41,7 +41,7 @@ ctx.font="30px Arial";
 ctx.fillText(
 "START",
 400,
-350
+game.height/2 + 50
 );
 
 
