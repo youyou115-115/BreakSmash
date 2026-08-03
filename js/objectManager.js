@@ -17,15 +17,17 @@ init(){
 
 spawn(){
 
+    let obj = new GameObject("board");
 
-this.objects.push(
 
-    new GameObject(
-        "board"
-    )
+    if(window.innerWidth < 700){
 
-);
+        obj.gravity = 0.8;
 
+    }
+
+
+    this.objects.push(obj);
 
 },
 
