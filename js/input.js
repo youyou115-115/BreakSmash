@@ -2,6 +2,41 @@ const Input = {
 
 
 init(canvas){
+    // タイトル開始（PC）
+
+canvas.addEventListener(
+    "click",
+    ()=>{
+
+        if(Game.screen==="title"){
+
+            Game.start();
+
+        }
+
+    }
+);
+
+
+// タイトル開始（スマホ）
+
+canvas.addEventListener(
+    "touchstart",
+    (e)=>{
+
+        if(Game.screen==="title"){
+
+            e.preventDefault();
+
+            Game.start();
+
+        }
+
+    },
+    {
+        passive:false
+    }
+);
 
 
     canvas.addEventListener(

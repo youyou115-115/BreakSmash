@@ -35,6 +35,18 @@ update(){
 
         ObjectManager.update();
 
+        for(let obj of ObjectManager.objects){
+
+    if(obj.isBroken() && !obj.counted){
+
+        this.score += obj.score;
+
+        obj.counted=true;
+
+    }
+
+}
+
 
         Effects.update();
 
@@ -70,14 +82,16 @@ update(){
 
 start(){
 
+    if(this.screen==="play"){
+        return;
+    }
+
 
     this.screen="play";
 
     this.score=0;
 
-
     ObjectManager.spawn();
-
 
 }
 
