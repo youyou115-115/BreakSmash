@@ -2,7 +2,7 @@ class GameObject{
 
 
 constructor(type){
-
+    
 
     this.type=type;
 
@@ -71,6 +71,8 @@ damage(){
         this.destroyTimer=60;
 
         this.state="damaged";
+
+        Game.addScore(this.score);
 
 
         Effects.createBreak(

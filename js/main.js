@@ -9,10 +9,8 @@ const GAME_HEIGHT = 700;
 
 function resizeCanvas(){
 
-
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
 
 }
 
@@ -36,8 +34,6 @@ Input.init(canvas);
 function loop(){
 
 
-    // 一旦リセット
-
     ctx.setTransform(
         1,
         0,
@@ -57,7 +53,7 @@ function loop(){
 
 
 
-    // 縦横比維持
+    // 最大表示
 
     const scale = Math.min(
         canvas.width / GAME_WIDTH,
@@ -67,11 +63,11 @@ function loop(){
 
 
     const offsetX =
-        (canvas.width - GAME_WIDTH * scale) / 2;
+    (canvas.width - GAME_WIDTH * scale) / 2;
 
 
     const offsetY =
-        (canvas.height - GAME_HEIGHT * scale) / 2;
+    (canvas.height - GAME_HEIGHT * scale) / 2;
 
 
 
@@ -95,7 +91,6 @@ function loop(){
     requestAnimationFrame(loop);
 
 }
-
 
 
 loop();

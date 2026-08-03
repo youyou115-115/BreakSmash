@@ -93,6 +93,11 @@ start(){
 
     ObjectManager.spawn();
 
+},
+addScore(value){
+
+    this.score += value;
+
 }
 
 
