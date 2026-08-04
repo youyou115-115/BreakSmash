@@ -116,13 +116,17 @@ update(){
         obj.update();
 
 
-        if(obj.isBroken() && !obj.counted){
+        if(
+    obj.isBroken() &&
+    obj.broken &&
+    !obj.counted
+){
 
-            Game.addScore(obj.score);
+    Game.addScore(obj.score);
 
-            obj.counted=true;
+    obj.counted=true;
 
-        }
+}
 
     }
 
@@ -162,6 +166,65 @@ hit(x,y){
 
     }
 
+
+},
+spawnMultiple(){
+
+    let count = 3;
+
+
+    if(Game.score >= 5000){
+
+        const r = Math.random();
+
+        if(r < 0.1){
+            count = 3;
+        }
+        else if(r < 0.6){
+            count = 4;
+        }
+        else{
+            count = 5;
+        }
+
+    }
+    else if(Game.score >= 3000){
+
+        const r = Math.random();
+
+        if(r < 0.3){
+            count = 3;
+        }
+        else if(r < 0.8){
+            count = 4;
+        }
+        else{
+            count = 5;
+        }
+
+    }
+    else{
+
+        const r = Math.random();
+
+        if(r < 0.6){
+            count = 3;
+        }
+        else if(r < 0.9){
+            count = 4;
+        }
+        else{
+            count = 5;
+        }
+
+    }
+
+
+    for(let i=0;i<count;i++){
+
+        this.spawn();
+
+    }
 
 }
 

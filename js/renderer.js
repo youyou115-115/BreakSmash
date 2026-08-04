@@ -334,7 +334,7 @@ ctx.shadowBlur=0;
 
     ctx.font="35px Arial";
     ctx.fillText(
-        "処理落ちが発生しました",
+        "YOU DIED",
         400,
         300
     );

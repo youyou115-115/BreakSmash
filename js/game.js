@@ -76,33 +76,70 @@ if(this.shake > 0){
 
 
 
-        if(
-            ObjectManager.objects.length===0 &&
-            this.spawnTimer===null
-        ){
+       if(
+    ObjectManager.objects.length===0 &&
+    this.spawnTimer===null
+){
+
+    this.spawnTimer = setTimeout(()=>{
 
 
-            this.spawnTimer = setTimeout(()=>{
+        if(this.score >= 1000){
+
+    let count;
 
 
-    if(this.score >= 500){
+    const rand = Math.random();
 
-        ObjectManager.spawnDouble();
+
+    // 1000〜3000点
+    if(this.score < 3000){
+
+        if(rand < 0.6){
+            count = 3;
+        }
+        else if(rand < 0.9){
+            count = 4;
+        }
+        else{
+            count = 5;
+        }
 
     }
+
+    // 3000点以降
     else{
 
-        ObjectManager.spawn();
+        if(rand < 0.3){
+            count = 3;
+        }
+        else if(rand < 0.7){
+            count = 4;
+        }
+        else{
+            count = 5;
+        }
 
     }
 
 
-    this.spawnTimer=null;
+    ObjectManager.spawnMultiple(count);
 
 
-},500);
+}
+else{
 
-        }
+    ObjectManager.spawn();
+
+}
+
+
+        this.spawnTimer=null;
+
+
+    },500);
+
+}
 
 
     }
@@ -125,7 +162,7 @@ start(){
 
     if(window.innerWidth < 700){
 
-    this.speed = 1.8;
+    this.speed = 2.0;
 
 }
 else{

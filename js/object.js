@@ -102,15 +102,23 @@ class GameObject{
 
 constructor(type){
 
-    
-    
+    // ボトルだけ落下
+this.isFalling = (type==="bottle");
+
+this.z = 0;
+this.speedZ = 0.012;
+
+
 
     this.type=type;
 
-
+    this.broken=false;
     // 初期位置
     this.x=250;
     this.y=-200;
+
+    this.targetX =
+200 + Math.random()*400;
 
 
     // 落下
@@ -135,6 +143,9 @@ constructor(type){
 
 this.width = data.width;
 this.height = data.height;
+
+this.baseWidth = data.width;
+this.baseHeight = data.height;
 
 
 this.maxHp = data.hp;
@@ -164,8 +175,7 @@ damage(x,y,power=1){
         return;
     }
 
-
-    // 地面到着前は叩けない
+// 接近後一定時間でミス
     if(!this.active){
         return;
     }
@@ -206,6 +216,7 @@ if(this.type !== "bottle"){
 
 
     if(this.hp<=0){
+        this.broken=true;
 
 
         this.destroyTimer=60;
@@ -277,44 +288,80 @@ update(){
     }
 
 
+if(!this.active){
+
+
     //====================
-    // 落下
+    // ボトル
     //====================
 
-    if(!this.active){
+    if(this.isFalling){
+
 
         this.y += this.vy;
 
         this.vy += this.gravity * Game.speed;
 
-        let groundY;
 
-        if(window.innerWidth < 700){
+        if(this.y >= 300){
 
-    groundY = Game.height * 0.65;
+            this.y = 300;
 
-}
-        else{
+            this.vy = 0;
 
-            groundY = 300;
+            this.active = true;
+
+            this.weakTimer = 0;
 
         }
 
-        if(this.y >= groundY){
+    }
 
-    this.y = groundY;
 
-    this.vy = 0;
+    //====================
+    // その他 奥から接近
+    //====================
 
-    this.active = true;
+    else{
 
-    // 弱点表示時間
-    this.weakTimer = 90;
 
-}
+        this.z += this.speedZ * Game.speed;
+
+
+        const scale = 0.3 + this.z;
+
+
+        this.width =
+        this.baseWidth * scale;
+
+
+        this.height =
+        this.baseHeight * scale;
+
+
+
+        this.x =
+        this.targetX - this.width/2;
+
+
+        this.y =
+        300 - this.height/2;
+
+
+
+        if(this.z >= 1){
+
+            this.z = 1;
+
+            this.active=true;
+
+            this.weakTimer=90;
+
+        }
 
     }
 
+}
 
  //====================
 // 地面到着後2秒でミス
