@@ -33,16 +33,7 @@ init(canvas,ctx){
     this.ctx = ctx;
 
 
-    if(window.innerWidth < 700){
-
-        this.height = 1200;
-
-    }
-    else{
-
-        this.height = 700;
-
-    }
+    this.height = 700;
 
 
     Assets.load();

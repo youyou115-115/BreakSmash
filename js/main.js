@@ -1,23 +1,16 @@
 const canvas = document.getElementById("gameCanvas");
-
 const ctx = canvas.getContext("2d");
 
+//====================
+// 仮想ゲームサイズ
+//====================
 
 const GAME_WIDTH = 800;
+const GAME_HEIGHT = 700;
 
-let GAME_HEIGHT;
-
-if(window.innerWidth < 700){
-
-    GAME_HEIGHT = 1200;
-
-}
-else{
-
-    GAME_HEIGHT = 700;
-
-}
-
+//====================
+// リサイズ
+//====================
 
 function resizeCanvas(){
 
@@ -26,26 +19,25 @@ function resizeCanvas(){
 
 }
 
+Game.init(canvas, ctx);
 
 resizeCanvas();
-
 
 window.addEventListener(
     "resize",
     resizeCanvas
 );
 
-
-
-Game.init(canvas,ctx);
-
 Input.init(canvas);
 Sound.init();
 
+//====================
+// メインループ
+//====================
 
 function loop(){
 
-
+    // 一度リセット
     ctx.setTransform(
         1,
         0,
@@ -55,7 +47,6 @@ function loop(){
         0
     );
 
-
     ctx.clearRect(
         0,
         0,
@@ -63,73 +54,45 @@ function loop(){
         canvas.height
     );
 
-
-
-    let scale;
-
-
-if(window.innerWidth < 700){
-
-    GAME_HEIGHT =
-    GAME_WIDTH *
-    (canvas.height / canvas.width);
-
-
-    scale = canvas.width / GAME_WIDTH;
-
-
-}
-else{
-
-    scale = Math.min(
+    // 画面全体に収まる倍率
+    const scale = Math.min(
         canvas.width / GAME_WIDTH,
         canvas.height / GAME_HEIGHT
     );
 
-}
-
-
-
+    // 中央配置
     const offsetX =
-    (canvas.width - GAME_WIDTH * scale) / 2;
-
+        (canvas.width - GAME_WIDTH * scale) / 2;
 
     const offsetY =
-(window.innerWidth < 700)
-? 0
-: (canvas.height - GAME_HEIGHT * scale) / 2;
+        (canvas.height - GAME_HEIGHT * scale) / 2;
 
+    // 画面揺れ
+    let shakeX = 0;
+    let shakeY = 0;
 
-let shakeX = 0;
-let shakeY = 0;
+    if(Game.shake > 0){
 
+        shakeX = Math.random() * 20 - 10;
+        shakeY = Math.random() * 20 - 10;
 
-if(Game.shake > 0){
+    }
 
-    shakeX = Math.random()*20-10;
-    shakeY = Math.random()*20-10;
-
-}
     ctx.setTransform(
         scale,
         0,
         0,
         scale,
-        offsetX,
-        offsetY
+        offsetX + shakeX,
+        offsetY + shakeY
     );
-
-
 
     Game.update();
 
     Renderer.draw(Game);
 
-
-
     requestAnimationFrame(loop);
 
 }
-
 
 loop();

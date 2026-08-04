@@ -1,147 +1,102 @@
 const Input = {
 
+    init(canvas){
 
-init(canvas){
+        canvas.addEventListener(
+            "pointerdown",
+            (e)=>{
 
+                const rect = canvas.getBoundingClientRect();
 
-    canvas.addEventListener(
-        "pointerdown",
-        (e)=>{
+                const x =
+                    (e.clientX - rect.left) * (canvas.width / rect.width);
 
+                const y =
+                    (e.clientY - rect.top) * (canvas.height / rect.height);
 
-            const rect = canvas.getBoundingClientRect();
+                // 描画倍率
+                const scale = Math.min(
+                    canvas.width / Game.width,
+                    canvas.height / Game.height
+                );
 
+                // 中央寄せ
+                const offsetX =
+                    (canvas.width - Game.width * scale) / 2;
 
-            const x =
-(e.clientX - rect.left) * (canvas.width / rect.width);
+                const offsetY =
+                    (canvas.height - Game.height * scale) / 2;
 
+                // ゲーム座標へ変換
+                const gameX = (x - offsetX) / scale;
+                const gameY = (y - offsetY) / scale;
 
-const y =
-(e.clientY - rect.top) * (canvas.height / rect.height);
+                //====================
+                // タイトル
+                //====================
 
+                if(Game.screen === "title"){
 
+                    const buttonY = Game.height / 2;
 
-            let scale;
+                    if(
+                        gameX > 250 &&
+                        gameX < 550 &&
+                        gameY > buttonY - 30 &&
+                        gameY < buttonY + 120
+                    ){
 
+                        if(Sound.ctx){
+                            Sound.ctx.resume();
+                        }
 
-if(window.innerWidth < 700){
+                        Game.start();
+                    }
 
-    scale = canvas.width / 800;
+                    return;
+                }
 
-}
-else{
+                //====================
+                // ゲームオーバー
+                //====================
 
-    scale = Math.min(
-        canvas.width / 800,
-        canvas.height / Game.height
-    );
+                if(Game.screen === "gameover"){
 
-}
+                    if(
+                        gameX > 250 &&
+                        gameX < 550 &&
+                        gameY > 520 &&
+                        gameY < 600
+                    ){
+                        Game.start();
+                    }
 
+                    return;
+                }
 
-const offsetX =
-(canvas.width - 800 * scale) / 2;
+                //====================
+                // オブジェクト判定
+                //====================
 
+                for(const obj of ObjectManager.objects){
 
-const offsetY =
-(canvas.height - Game.height * scale) / 2;
+                    if(
+                        obj.active &&
+                        obj.state === "normal" &&
+                        gameX > obj.x &&
+                        gameX < obj.x + obj.width &&
+                        gameY > obj.y &&
+                        gameY < obj.y + obj.height
+                    ){
 
+                        obj.damage(gameX, gameY);
+                        break;
+                    }
+                }
 
-
-            const gameX =
-            (x - offsetX) / scale;
-
-
-            const gameY =
-            (y - offsetY) / scale;
-
-
-
-            //====================
-            // タイトル画面
-            //====================
-
-            if(Game.screen==="title"){
-
-
-    const buttonY = Game.height / 2;
-
-
-    if(
-        gameX > 250 &&
-        gameX < 550 &&
-        gameY > buttonY - 30 &&
-        gameY < buttonY + 120
-    ){
-
-        if(Sound.ctx){
-
-            if(Sound.ctx){
-    Sound.ctx.resume();
-}
-
-        }
-
-
-        Game.start();
-
-    }
-
-
-    return;
-
-}
-            if(Game.screen==="gameover"){
-
-    if(
-        gameX > 250 &&
-        gameX < 550 &&
-        gameY > 520 &&
-        gameY < 600
-    ){
-        Game.start();
-    }
-
-    return;
-}
-
-
-
-
-let target = null;
-
-
-for(let obj of ObjectManager.objects){
-
-    if(
-        obj.active &&
-        obj.state==="normal" &&
-        gameX > obj.x &&
-        gameX < obj.x + obj.width &&
-        gameY > obj.y &&
-        gameY < obj.y + obj.height
-    ){
-
-        obj.damage(
-            gameX,
-            gameY
+            }
         );
 
-        break;
-
     }
 
-}
-
-  
-
-}
-
-
-    );
-
-
-}
-
-
-};  
+};
