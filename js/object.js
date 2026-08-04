@@ -106,7 +106,7 @@ constructor(type){
 this.isFalling = (type==="bottle");
 
 this.z = 0;
-this.speedZ = 0.012;
+this.speedZ = 0.015;
 
 
 
@@ -303,9 +303,9 @@ if(!this.active){
         this.vy += this.gravity * Game.speed;
 
 
-        if(this.y >= 300){
+        if(this.y >= Game.height / 2){
 
-            this.y = 300;
+    this.y = Game.height / 2;
 
             this.vy = 0;
 
@@ -344,8 +344,8 @@ if(!this.active){
         this.targetX - this.width/2;
 
 
-        this.y =
-        300 - this.height/2;
+       this.y =
+Game.height / 2 - this.height / 2;
 
 
 

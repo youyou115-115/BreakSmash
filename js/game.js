@@ -21,7 +21,7 @@ hp:3,
 maxHp:3,
 
 width:800,
-height:700,
+height:1200,
 damageFlash:0,
 
 spawnTimer:null,
@@ -33,7 +33,7 @@ init(canvas,ctx){
     this.ctx = ctx;
 
 
-    this.height = 700;
+    this.height = 1200;
 
 
     Assets.load();
